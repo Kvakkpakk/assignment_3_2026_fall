@@ -107,10 +107,38 @@ function addToPlaylist(song) {
 
 // Shows the songs in My Playlist, or the empty message when there are none
 function showPlaylist() {
-  const cards = playlist.map(createSongCard);
+  const cards = playlist.map(createPlaylistCard);
   playlistListElement.replaceChildren(...cards);
 
+  // Add up the duration of every song in the playlist
+  let totalSeconds = 0;
+  playlist.forEach((song) => {
+    totalSeconds = totalSeconds + song.duration;
+  });
+  playlistDurationElement.textContent =
+    "Total duration: " + formatDuration(totalSeconds);
+
   playlistEmptyElement.hidden = playlist.length > 0;
+}
+
+// Playlist card: a normal song card plus a Remove button
+function createPlaylistCard(song) {
+  const card = createSongCard(song);
+
+  const removeButton = document.createElement("button");
+  removeButton.type = "button";
+  removeButton.className = "song-card__button";
+  removeButton.textContent = "Remove";
+  removeButton.addEventListener("click", () => removeFromPlaylist(song));
+
+  card.append(removeButton);
+  return card;
+}
+
+// Removes a song from My Playlist
+function removeFromPlaylist(song) {
+  playlist = playlist.filter((playlistSong) => playlistSong.id !== song.id);
+  showPlaylist();
 }
 
 // Find all genres in songs.js
