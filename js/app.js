@@ -21,6 +21,14 @@ const collectionEmptyElement = document.getElementById("collectionEmpty");
 // Remembers whether the sort order is reversed
 let isDescending = false;
 
+// Connecting the playlist parts of the html to the js
+const playlistListElement = document.getElementById("playlistList");
+const playlistDurationElement = document.getElementById("playlistDuration");
+const playlistEmptyElement = document.getElementById("playlistEmpty");
+
+// The songs the user has added to My Playlist
+let playlist = [];
+
 // Changing from seconds to minutes + seconds. And adding "0" infront if minutes/seconds are less than 10.
 function formatDuration(totalSeconds) {
   let minutes = Math.floor(totalSeconds / 60);
@@ -60,13 +68,49 @@ function createSongCard(song) {
   return card;
 }
 
+// Adding a button to the song card
+function buttonPlusCard(song) {
+  const card = createSongCard(song);
+
+  const addButton = document.createElement("button");
+  addButton.type = "button";
+  addButton.className = "song-card__button";
+  addButton.textContent = "Add";
+  addButton.addEventListener("click", () => addToPlaylist(song));
+
+  card.append(addButton);
+  return card;
+}
+
 // Shows and replaces any former song cards
 function showSongs(songList) {
-  const cards = songList.map(createSongCard);
+  const cards = songList.map(buttonPlusCard);
   songListElement.replaceChildren(...cards);
 
   // Show the empty message only when there are no songs to display
   collectionEmptyElement.hidden = songList.length > 0;
+}
+
+// Adds a song to My Playlist, unless it is already there
+function addToPlaylist(song) {
+  const alreadyInPlaylist = playlist.some(
+    (playlistSong) => playlistSong.id === song.id,
+  );
+
+  if (alreadyInPlaylist) {
+    return;
+  }
+
+  playlist.push(song);
+  showPlaylist();
+}
+
+// Shows the songs in My Playlist, or the empty message when there are none
+function showPlaylist() {
+  const cards = playlist.map(createSongCard);
+  playlistListElement.replaceChildren(...cards);
+
+  playlistEmptyElement.hidden = playlist.length > 0;
 }
 
 // Find all genres in songs.js
@@ -137,3 +181,6 @@ sortDirectionButtonElement.addEventListener("click", () => {
 
   updateSongList();
 });
+
+// Show the empty message when the page loads
+showPlaylist();

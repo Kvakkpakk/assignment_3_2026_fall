@@ -27,7 +27,19 @@
           <button type="button" id="sortDirectionButton">Ascending</button>
         </search>
         <ul class="song-list" id="songList"></ul>
-        <p class="music-collection-section__empty" id="collectionEmpty" hidden>No songs match your search.</p>
+        <p class="music-collection-section__empty" id="collectionEmpty" hidden>
+          No songs match your search.
+        </p>
+      </section>
+      <section class="playlist-section">
+        <h2>My Playlist</h2>
+        <p class="playlist-section__duration" id="playlistDuration">
+          Total duration: 00:00
+        </p>
+        <ul class="song-list" id="playlistList"></ul>
+        <p class="playlist-section__empty" id="playlistEmpty">
+          Your playlist is empty.
+        </p>
       </section>
     </main>
     <script src="./data/songs.js"></script>
