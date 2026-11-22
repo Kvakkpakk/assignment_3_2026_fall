@@ -1,6 +1,9 @@
 // Connecting the ul songList in the html to the js
 const songListElement = document.getElementById("songList");
 
+// Connecting the search field to the js
+const searchInputElement = document.getElementById("searchInput");
+
 // Changing from seconds to minutes + seconds. And adding "0" infront if minutes/seconds are less than 10.
 function formatDuration(totalSeconds) {
   let minutes = Math.floor(totalSeconds / 60);
@@ -40,8 +43,26 @@ function createSongCard(song) {
   return card;
 }
 
-// Going through each item/object in the "songs.js" and making cards.
-songs.forEach((song) => {
-  const card = createSongCard(song);
-  songListElement.append(card);
+// Shows and replaces any former song cards
+function showSongs(songList) {
+  const cards = songList.map(createSongCard);
+  songListElement.replaceChildren(...cards);
+}
+
+// Show songs
+showSongs(songs);
+
+// Search by title or artist
+searchInputElement.addEventListener("input", () => {
+  const searchText = searchInputElement.value.toLowerCase();
+
+  const filteredSongs = songs.filter((song) => {
+    return (
+      song.title.toLowerCase().includes(searchText) ||
+      song.artist.toLowerCase().includes(searchText)
+    );
+  });
+
+  // Show filtered songs
+  showSongs(filteredSongs);
 });
