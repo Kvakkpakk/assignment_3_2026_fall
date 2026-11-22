@@ -15,6 +15,9 @@ const sortDirectionButtonElement = document.getElementById(
   "sortDirectionButton",
 );
 
+// Connecting the empty-state message for the collection to js
+const collectionEmptyElement = document.getElementById("collectionEmpty");
+
 // Remembers whether the sort order is reversed
 let isDescending = false;
 
@@ -61,6 +64,9 @@ function createSongCard(song) {
 function showSongs(songList) {
   const cards = songList.map(createSongCard);
   songListElement.replaceChildren(...cards);
+
+  // Show the empty message only when there are no songs to display
+  collectionEmptyElement.hidden = songList.length > 0;
 }
 
 // Find all genres in songs.js
