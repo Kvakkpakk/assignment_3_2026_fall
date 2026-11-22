@@ -55,21 +55,6 @@ function showSongs(songList) {
 // Show songs
 showSongs(songs);
 
-// Search by title or artist
-searchInputElement.addEventListener("input", () => {
-  const searchText = searchInputElement.value.toLowerCase();
-
-  const filteredSongs = songs.filter((song) => {
-    return (
-      song.title.toLowerCase().includes(searchText) ||
-      song.artist.toLowerCase().includes(searchText)
-    );
-  });
-
-  // Show filtered songs
-  showSongs(filteredSongs);
-});
-
 // Find all genres in songs.js
 function fillGenreOptions() {
   const genres = [...new Set(songs.map((song) => song.genre))];
@@ -84,3 +69,25 @@ function fillGenreOptions() {
 
 // Adds genres to the dropdown menu
 fillGenreOptions();
+
+// Combined search by title or artist with genre dropdown menu, and shows filtered songs
+function updateSongList() {
+  const searchText = searchInputElement.value.toLowerCase();
+  const selectedGenre = selectGenreElement.value;
+
+  const filteredSongs = songs.filter((song) => {
+    const matchesSearch =
+      song.title.toLowerCase().includes(searchText) ||
+      song.artist.toLowerCase().includes(searchText);
+    const matchesGenre =
+      selectedGenre === "all" || song.genre === selectedGenre;
+
+    return matchesSearch && matchesGenre;
+  });
+
+  showSongs(filteredSongs);
+}
+
+// Update the list whenever searching or changes the genre
+searchInputElement.addEventListener("input", updateSongList);
+selectGenreElement.addEventListener("change", updateSongList);
