@@ -4,6 +4,9 @@ const songListElement = document.getElementById("songList");
 // Connecting the search field to the js
 const searchInputElement = document.getElementById("searchInput");
 
+// Connecting the genre dropdown menu to js
+const selectGenreElement = document.getElementById("selectGenre");
+
 // Changing from seconds to minutes + seconds. And adding "0" infront if minutes/seconds are less than 10.
 function formatDuration(totalSeconds) {
   let minutes = Math.floor(totalSeconds / 60);
@@ -66,3 +69,18 @@ searchInputElement.addEventListener("input", () => {
   // Show filtered songs
   showSongs(filteredSongs);
 });
+
+// Find all genres in songs.js
+function fillGenreOptions() {
+  const genres = [...new Set(songs.map((song) => song.genre))];
+
+  genres.forEach((genre) => {
+    const option = document.createElement("option");
+    option.value = genre;
+    option.textContent = genre;
+    selectGenreElement.append(option);
+  });
+}
+
+// Adds genres to the dropdown menu
+fillGenreOptions();
