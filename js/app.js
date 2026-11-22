@@ -236,6 +236,6 @@ sortDirectionButtonElement.addEventListener("click", () => {
   updateSongList();
 });
 
-// Show the empty message when the page loads
+// Load any playlist in local storage and show playlist when the page loads
 loadPlaylist();
 showPlaylist();

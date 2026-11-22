@@ -12,19 +12,30 @@
       <section class="music-collection-section">
         <h2>Music Collection</h2>
         <search class="music-collection-section__controls">
-          <label for="searchInput">Search</label>
-          <input type="search" id="searchInput" placeholder="Title or artist" />
-          <label for="selectGenre">Genre</label>
-          <select id="selectGenre">
-            <option value="all">All Genres</option>
-          </select>
-          <label for="sortingBy">Sort by</label>
-          <select id="sortingBy">
-            <option value="title">Title</option>
-            <option value="artist">Artist</option>
-            <option value="duration">Duration</option>
-          </select>
-          <button type="button" id="sortDirectionButton">Ascending</button>
+          <div class="music-collection-section__field">
+            <label for="searchInput">Search:</label>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Title or artist"
+            />
+          </div>
+          <div class="music-collection-section__field">
+            <label for="selectGenre">Genre:</label>
+            <select id="selectGenre">
+              <option value="all">All Genres</option>
+            </select>
+          </div>
+          <div class="music-collection-section__field">
+            <label for="sortingBy">Sort by:</label>
+            <select id="sortingBy">
+              <option value="title">Title</option>
+              <option value="artist">Artist</option>
+              <option value="duration">Duration</option>
+            </select>
+
+            <button type="button" id="sortDirectionButton">Ascending</button>
+          </div>
         </search>
         <ul class="song-list" id="songList"></ul>
         <p class="music-collection-section__empty" id="collectionEmpty" hidden>
