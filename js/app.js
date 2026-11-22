@@ -29,6 +29,9 @@ const playlistEmptyElement = document.getElementById("playlistEmpty");
 // The songs the user has added to My Playlist
 let playlist = [];
 
+// The name of the key to where the playlist is saved in the browser's local storage
+const playlistStorageKey = "playlistSongIds";
+
 // Changing from seconds to minutes + seconds. And adding "0" infront if minutes/seconds are less than 10.
 function formatDuration(totalSeconds) {
   let minutes = Math.floor(totalSeconds / 60);
@@ -102,6 +105,7 @@ function addToPlaylist(song) {
   }
 
   playlist.push(song);
+  savePlaylist();
   showPlaylist();
 }
 
@@ -138,7 +142,29 @@ function createPlaylistCard(song) {
 // Removes a song from My Playlist
 function removeFromPlaylist(song) {
   playlist = playlist.filter((playlistSong) => playlistSong.id !== song.id);
+  savePlaylist();
   showPlaylist();
+}
+
+// Saves the ids of the songs in My Playlist to local storage
+function savePlaylist() {
+  const songIds = playlist.map((song) => song.id);
+  localStorage.setItem(playlistStorageKey, JSON.stringify(songIds));
+}
+
+// Loads the saved ids and finds the matching songs in songs.js
+function loadPlaylist() {
+  const savedSongIds = localStorage.getItem(playlistStorageKey);
+
+  // Nothing saved yet, keeps the empty playlist
+  if (savedSongIds === null) {
+    return;
+  }
+
+  const songIds = JSON.parse(savedSongIds);
+  playlist = songIds
+    .map((songId) => songs.find((song) => song.id === songId))
+    .filter((song) => song !== undefined);
 }
 
 // Find all genres in songs.js
@@ -211,4 +237,5 @@ sortDirectionButtonElement.addEventListener("click", () => {
 });
 
 // Show the empty message when the page loads
+loadPlaylist();
 showPlaylist();
