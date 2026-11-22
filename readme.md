@@ -2,4 +2,5 @@ Brief description: Music Collection and My Playlist.<br>
 Link to the GitHub repository: https://github.com/Kvakkpakk/assignment_3_2026_fall<br>
 Link to the deployment: https://kvakkpakk.github.io/assignment_3_2026_fall/<br>
 Disclaimer: This is a student project created for educational purposes and is not an official or affiliated website.<br>
-To get a "quicker" start I copied files from other assignments, from this semester, to use as a "baseline".
+To get a "quicker" start I copied files from other assignments, from this semester, to use as a "baseline".<br>
+AI assistance: I used Claude (Anthropic) throughout this assignment. It suggested an initial build order, which we then followed and adjusted together as I decided what to tackle next. It explained concepts when I asked, provided code examples for the features (search, filtering, sorting, playlist, `localStorage`) and for much of the layout CSS, and reviewed my code and pointed out bugs, which I then fixed. I typed in, adapted and tested the code myself. The color palette, typography and CSS variables, the base HTML structure, the code comments and commit messages, and the setup of Git and GitHub Pages were done by me.
